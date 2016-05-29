@@ -1,0 +1,31 @@
+{
+  "name": "koa-router-autoload",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./example/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lichangwei/koa-router-autoload.git"
+  },
+  "keywords": [
+    "koa",
+    "router",
+    "auto-loading"
+  ],
+  "author": "lichangwei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lichangwei/koa-router-autoload/issues"
+  },
+  "homepage": "https://github.com/lichangwei/koa-router-autoload#readme",
+  "dependencies": {
+    "koa-router": "^5.4.0",
+    "require-all": "^2.0.0"
+  },
+  "devDependencies": {
+    "koa": "^1.2.0"
+  }
+}
