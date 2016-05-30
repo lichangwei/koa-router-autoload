@@ -4,7 +4,7 @@ let Router = module.exports = require('koa-router');
 
 let FILE_TEMP_KEY = '__is__file__';
 
-let methods = 'get,put,post,del,delete'.split(',');
+let methods = 'get,put,post,del,delete,options,head,trace'.split(',');
 
 Router.prototype.load = function(folder, prefix){
     prefix = prefix || '';
@@ -21,19 +21,23 @@ Router.prototype.load = function(folder, prefix){
 
     for(let key in resources){
         let res = resources[key];
+        //允许通过设置`exports.path = null;`忽略某些文件
+        if(res.path === null) continue;
         key = res.path || key;
-        for(var method in res){
+        for(let method in res){
+            //忽略非标准HTTP method的函数
             if(methods.indexOf(method) === -1) continue;
             let path = require('path').normalize(`${prefix}/${key}`);
             let func = res[method];
+            //使用koa router加载资源
             this[method](path, func);
-            console.log(this);
-            console.log(method);
-            console.log(path);
         }
     }
 };
 
+/*
+ * 将资源树拍平，成 key-value 结构
+ */
 function flat(tree, map, path){
     path = path || '';
     for(let key in tree){
