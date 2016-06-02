@@ -33,6 +33,8 @@ Router.prototype.load = function(folder, prefix){
             this[method](path, func);
         }
     }
+
+    return this;
 };
 
 /*
