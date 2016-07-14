@@ -29,7 +29,7 @@ Router.prototype.load = function(folder, prefix){
         for(let method in res){
             //忽略非标准HTTP method的函数
             if(methods.indexOf(method) === -1) continue;
-            let path = require('path').normalize(`${prefix}${sep}${key}`);
+            let path = `${prefix}/${key}`.replace(/\/\//g, '/');
             let func = res[method];
             //使用koa router加载资源
             this[method](path, func);
@@ -52,12 +52,12 @@ function flat(tree, map, path){
             if(key === 'index'){
                 map[path] = res;
             }else{
-                map[`${path}${sep}${key}`] = res;
+                map[`${path}/${key}`] = res;
             }
         }
         //如果是文件夹，递归遍历
         else{
-            flat(res, map, `${path}${sep}${key}`);
+            flat(res, map, `${path}/${key}`);
         }
     }
     return map;
