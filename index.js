@@ -1,5 +1,7 @@
 'use strict';
 
+let sep = require('path').sep;
+
 let Router = module.exports = require('koa-router');
 
 let FILE_TEMP_KEY = '__is__file__';
@@ -27,7 +29,7 @@ Router.prototype.load = function(folder, prefix){
         for(let method in res){
             //忽略非标准HTTP method的函数
             if(methods.indexOf(method) === -1) continue;
-            let path = require('path').normalize(`${prefix}/${key}`);
+            let path = require('path').normalize(`${prefix}${sep}${key}`);
             let func = res[method];
             //使用koa router加载资源
             this[method](path, func);
@@ -50,12 +52,12 @@ function flat(tree, map, path){
             if(key === 'index'){
                 map[path] = res;
             }else{
-                map[`${path}/${key}`] = res;
+                map[`${path}${sep}${key}`] = res;
             }
         }
         //如果是文件夹，递归遍历
         else{
-            flat(res, map, `${path}/${key}`);
+            flat(res, map, `${path}${sep}${key}`);
         }
     }
     return map;
