@@ -1,3 +1,3 @@
 exports.get = function *(){
-    this.body = 'I am a student.'
+    this.body = 'I am a user.'
 }

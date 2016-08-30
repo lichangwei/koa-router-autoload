@@ -12,7 +12,7 @@ Router.prototype.load = function(folder, prefix){
     prefix = prefix || '';
     let resources = require('require-all')({
             dirname   : folder,
-            //filter    : /\.js$/,
+            filter    : /(.*\.js)$/,
             recursive : true,
             resolve: function(resource){
                 resource[FILE_TEMP_KEY] = true;
@@ -48,6 +48,7 @@ function flat(tree, map, path){
         let res = tree[key];
         //如果是文件
         if(res[FILE_TEMP_KEY]){
+            key = key.replace(/\.js$/, '')
             //如果是index.js
             if(key === 'index'){
                 map[path] = res;
